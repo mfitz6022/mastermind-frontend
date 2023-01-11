@@ -18,10 +18,6 @@ const UserScores = ({ setDisplay }) => {
     }
   }
 
-  const handleMenuReturn = () => {
-    setDisplay('MainMenu')
-  }
-
   useEffect(() => {
     handleScoreData();
   },[]);
@@ -29,11 +25,10 @@ const UserScores = ({ setDisplay }) => {
   return (
     isLoaded
       ? <div>
-          <button onClick={handleMenuReturn}>Return to Main Menu</button>
-          <ScoreBoard scoreData={scoreData}/>
+          <ScoreBoard scoreData={scoreData} setDisplay={setDisplay}/>
         </div>
       : <div>
-          <button onClick={handleMenuReturn}>Return to Main Menu</button>
+          <button onClick={() => {setDisplay('MainMenu')}}>Return to Main Menu</button>
           <div>Loading...</div>
         </div>
   );

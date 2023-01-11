@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
 import { takeGuess } from '../../helper_functions/guessFunctions.js';
-import Win from './results/Win.jsx';
-import Lose from './results/Lose.jsx';
 
-const Guess = ({code, attempts, setAttempts}) => {
+const Guess = ({code, attempts, setAttempts, setDisplay, hasWon, setHasWon, hasLost, setHasLost}) => {
   const [guess, setGuess] = useState([])
   const [feedback, setFeedback] = useState([0, 0, 0, 0]);
-  const [hasWon, setHasWon] = useState(false);
-  const [hasLost, setHasLost] = useState(false);
+  const [hasSubmit, setHasSubmit] = useState(false)
 
   useEffect((attempts) => {
     console.log(`attempts => ${attempts}`);
@@ -22,9 +19,9 @@ const Guess = ({code, attempts, setAttempts}) => {
   }
 
   const handleAttempt = (code, guess, attempts) => {
+    setAttempts(attempts + 1);
     let formattedGuess = guess.map((item) => Number(item));
     formattedGuess = formattedGuess.slice(0,4);
-    setAttempts(attempts + 1);
     const result = takeGuess(code, formattedGuess, attempts);
     if (result === true) {
       setHasWon(true);
@@ -33,30 +30,21 @@ const Guess = ({code, attempts, setAttempts}) => {
     } else {
       setFeedback(result);
     }
+    setHasSubmit(true);
   }
 
-  if (hasWon) {
-    return (
-      <Win code={code} />
-    )
-  } else if (hasLost) {
-    return (
-      <Lose code={code} />
-    )
-  } else {
-    return (
-      <div>
-        <div className="attempts">{`attempts: ${attempts}`}</div>
-        <div className="guess">
-          {code.map((item, index) => <input key={index} onChange={(event) => {handleInput(event, index)}}/>)}
-        </div>
-        <button onClick={() => {handleAttempt(code, guess, attempts)}}>submit</button>
-        <div className="feedback">
-          {feedback.map((item, index) => <div key={index}>{item}</div>)}
-        </div>
+  return (
+    <div>
+      <div className="guess">
+        {code.map((item, index) => <input key={index} onChange={(event) => {handleInput(event, index)}}/>)}
       </div>
-    )
-  }
+        {hasSubmit ? null : <button onClick={() => {handleAttempt(code, guess, attempts)}}>submit</button>}
+      <div className="feedback">
+        {feedback.map((item, index) => <div key={index}>{item}</div>)}
+      </div>
+    </div>
+  )
+
 }
 
 export default Guess;

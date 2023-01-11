@@ -6,18 +6,19 @@ import Options from '../Misc/Options.jsx';
 import OfflineBoard from '../boards/OfflineBoard.jsx';
 import OnlineMenu from './OnlineMenu.jsx';
 
-const MainMenu = () => {
+const MainMenu = ({ user }) => {
   const [display, setDisplay] = useState('MainMenu');
+  const [difficulty, setDifficulty] = useState('easy');
 
   if (display === 'MainMenu') {
     return (
-      <div>
-        <button onClick={() => {setDisplay('GlobalScores')}}>Leaderboards</button>
-        <button onClick={() => {setDisplay('UserScores')}}>Previous Scores</button>
-        <button onClick={() => {setDisplay('HowToPlay')}}>How to Play</button>
-        <button onClick={() => {setDisplay('Options')}}>Options</button>
-        <button onClick={() => {setDisplay('OfflinePlay')}}>Play!</button>
-        <button onClick={() => {setDisplay('OnlineMenu')}}>Online Mode</button>
+      <div className="main-menu-nav">
+        <button className="main-menu-button" onClick={() => {setDisplay('GlobalScores')}}>Leaderboards</button>
+        <button className="main-menu-button" onClick={() => {setDisplay('UserScores')}}>Previous Scores</button>
+        <button className="main-menu-button" onClick={() => {setDisplay('HowToPlay')}}>How to Play</button>
+        <button className="main-menu-button" onClick={() => {setDisplay('Options')}}>Options</button>
+        <button className="main-menu-button" onClick={() => {setDisplay('OfflinePlay')}}>Play!</button>
+        <button className="main-menu-button" onClick={() => {setDisplay('OnlineMenu')}}>Online Mode</button>
       </div>
     )
   } else if (display === 'GlobalScores') {
@@ -27,11 +28,11 @@ const MainMenu = () => {
   } else if (display === 'HowToPlay') {
     return <HowToPlay setDisplay={setDisplay}/>
   } else if (display === 'Options') {
-    return <Options setDisplay={setDisplay}/>
+    return <Options setDisplay={setDisplay} difficulty={difficulty} setDifficulty={setDifficulty}/>
   } else if (display === 'OfflinePlay') {
-    return <OfflineBoard setDisplay={setDisplay}/>
+    return <OfflineBoard setDisplay={setDisplay} setDifficulty={setDifficulty}  difficulty={difficulty}/>
   } else {
-    return <OnlineMenu setDisplay={setDisplay}/>
+    return <OnlineMenu setDisplay={setDisplay} user={user}/>
   }
 }
 

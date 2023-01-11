@@ -1,4 +1,4 @@
-const ScoreBoard = ({ scoreData }) => {
+const ScoreBoard = ({ scoreData, setDisplay }) => {
   return (
     <div className="score-board">
       {scoreData.map((item, index) => <div key={index}>
@@ -8,6 +8,9 @@ const ScoreBoard = ({ scoreData }) => {
         <div>{item.attempts}</div>
         <div>{item.hints_used}</div>
       </div>)}
+      <div>
+        <button className="return-to-menu" onClick={() => {setDisplay('MainMenu')}}>Return to Main Menu</button>
+      </div>
     </div>
   );
 }

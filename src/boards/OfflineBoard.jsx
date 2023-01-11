@@ -1,8 +1,10 @@
 import Board from './Board.jsx';
 
-const OfflineBoard = () => {
+const OfflineBoard = ({ setDisplay }) => {
   return (
-    <Board />
+    <div>
+      <Board setDisplay={setDisplay}/>
+    </div>
   )
 }
 

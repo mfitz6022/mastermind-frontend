@@ -23,7 +23,6 @@ const dataParser = (data)  => {
 export const randomNumberEasy = async () => {
   try {
     const { data } = await axios.get(URLrandom(4));
-    console.log(dataParser(data));
     return dataParser(data);
   } catch (err) {
     console.log(err);
@@ -33,7 +32,7 @@ export const randomNumberEasy = async () => {
 export const randomNumberMed = async () => {
   try {
     const { data } = await axios.get(URLrandom(7));
-    return data;
+    return dataParser(data);
   } catch (err) {
     console.log(err);
   }
@@ -42,9 +41,7 @@ export const randomNumberMed = async () => {
 export const randomNumberHard = async () => {
   try {
     const { data } = await axios.get(URLrandom(10));
-    data.split('');
-    console.log(data);
-    return data;
+    return dataParser(data);;
   } catch (err) {
     console.log(err);
   }
@@ -53,7 +50,6 @@ export const randomNumberHard = async () => {
 export const readUserScores = async () => {
   try {
     const response = await axios.get(`${URLmastermindServer}/users/leaderboards`);
-    console.log(response);
     return response;
   } catch (err) {
     console.log(err);
@@ -63,7 +59,6 @@ export const readUserScores = async () => {
 export const readGlobalLeaderboards = async () => {
   try {
     const response = await axios.get(`${URLmastermindServer}/global/leaderboards`);
-    console.log(response);
     return response;
   } catch (err) {
     console.log(err);

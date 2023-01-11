@@ -5,7 +5,6 @@ import MainMenu from './menu/MainMenu.jsx';
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState('');
-  // const [display, setDisplay] = useState('SignIn')
 
   return (
     <div className="App">
