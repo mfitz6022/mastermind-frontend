@@ -1,5 +1,4 @@
 export const takeGuess = (code, guess, count) => {
-  count++;
   let isCorrect = true;
   const feedBack = [0, 0, 0, 0];
 
@@ -14,6 +13,10 @@ export const takeGuess = (code, guess, count) => {
     } else if (`${input}` in codeObject) {
       feedBack[index] = 1;
     }
+  })
+
+  feedBack.sort((a, b) => {
+    return a - b;
   })
 
   feedBack.forEach((result) => {

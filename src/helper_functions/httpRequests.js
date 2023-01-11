@@ -4,13 +4,27 @@ const URLrandom = (num) => {
   return `https://www.random.org/integers/?num=${num}&min=0&max=7&col=1&base=10&format=plain&rnd=new`;
 }
 
-const URLmastermindServer = 'https://localhost:3000';
+const URLmastermindServer = 'http://localhost:3000';
+
+const dataParser = (data)  => {
+  let dataArray = data.split('');
+  let parsedData = [];
+
+  for (let i = 0; i <= dataArray.length; i++) {
+    let num = Number(dataArray[i]);
+    if (num) {
+      parsedData.push(num);
+    }
+  }
+
+  return parsedData;
+}
 
 export const randomNumberEasy = async () => {
   try {
-    const response = await axios.get(URLrandom(4));
-    console.log(response);
-    return response;
+    const { data } = await axios.get(URLrandom(4));
+    console.log(dataParser(data));
+    return dataParser(data);
   } catch (err) {
     console.log(err);
   }
@@ -18,8 +32,8 @@ export const randomNumberEasy = async () => {
 
 export const randomNumberMed = async () => {
   try {
-    const response = await axios.get(URLrandom(7));
-    return response;
+    const { data } = await axios.get(URLrandom(7));
+    return data;
   } catch (err) {
     console.log(err);
   }
@@ -27,8 +41,10 @@ export const randomNumberMed = async () => {
 
 export const randomNumberHard = async () => {
   try {
-    const response = await axios.get(URLrandom(10));
-    return response;
+    const { data } = await axios.get(URLrandom(10));
+    data.split('');
+    console.log(data);
+    return data;
   } catch (err) {
     console.log(err);
   }
