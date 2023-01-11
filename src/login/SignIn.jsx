@@ -4,15 +4,14 @@ import SignUp from './SignUp.jsx';
 import { loginUser } from '../helper_functions/httpRequests.js';
 
 // Must add client side input validation
-const SignIn = ({ setIsLoggedIn }) => {
+const SignIn = ({ setIsLoggedIn, user, setUser }) => {
   const [hasAccount, setHasAccount] = useState(true);
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
 
   const handleSignIn = async () => {
     try {
-      const { data } = await loginUser(username, password);
+      const { data } = await loginUser(user, password);
       if (data === true) {
         setIsLoggedIn(true);
       } else {
@@ -27,7 +26,7 @@ const SignIn = ({ setIsLoggedIn }) => {
     <div>
       {hasAccount
         ? <div>
-            <InputFields setUsername={setUsername} setPassword={setPassword} />
+            <InputFields setUsername={setUser} setPassword={setPassword} />
             {isError
               ? <div>invalid username or password</div>
               : null

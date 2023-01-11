@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="App">
       {!isLoggedIn
-        ? <SignIn className="sign-in" setIsLoggedIn={setIsLoggedIn} setUser={setUser}/>
+        ? <SignIn className="sign-in" setIsLoggedIn={setIsLoggedIn} user={user} setUser={setUser}/>
         : <MainMenu className="main-menu" isLoggedIn={isLoggedIn} user={user}/>
       }
     </div>

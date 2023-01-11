@@ -22,8 +22,10 @@ const OnlineMenu = ({ setDisplay, user }) => {
 
   socket.on('joined', async (data) => {
     try {
+      console.log('data from on.join' + data);
       setRooms([...rooms, data.room])
-      await setUsersInRoom(...usersInRoom, data.username)
+      await setUsersInRoom([...usersInRoom, data.username])
+      console.log('users in room: ', usersInRoom)
       setCurrentRoom({
         users: usersInRoom,
         room: data.room
@@ -33,6 +35,8 @@ const OnlineMenu = ({ setDisplay, user }) => {
     }
   })
 
+
+
   return (
     <div>
       {isConnected
@@ -41,7 +45,7 @@ const OnlineMenu = ({ setDisplay, user }) => {
             <div className="room-list">
               {usersInRoom.map((item, index) =>
               <div className="room">
-                `Players: ${usersInRoom.toString()}`
+                Players in room: {usersInRoom.toString()}
               </div>)}
             </div>
             <button className="main-menu-button" onClick={() => setDisplay('MainMenu')}>Return to Main Menu</button>
