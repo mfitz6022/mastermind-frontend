@@ -56,14 +56,15 @@ export const readUserScores = async () => {
   }
 };
 
-export const readGlobalLeaderboards = async () => {
-  try {
-    const response = await axios.get(`${URLmastermindServer}/global/leaderboards`);
-    return response;
-  } catch (err) {
-    console.log(err);
-  }
-}
+//  REFACTOR TO ACCOMADATE LEADERBOARD CHANGES
+// export const readGlobalLeaderboards = async () => {
+//   try {
+//     const response = await axios.get(`${URLmastermindServer}/global/leaderboards`);
+//     return response;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// }
 
 export const createUser = async (username, password) => {
   try {
@@ -89,32 +90,34 @@ export const loginUser = async (username, password) => {
   }
 };
 
+// REFACTOR TO ACCOMODATE CHANGES TO LEADERBOARD
 export const createUserScores = async (difficulty, time, attempts, hints, score) => {
   try {
-    await axios.post(`${URLmastermindServer}/users/leaderboards`, {
+    const response = await axios.post(`${URLmastermindServer}/users/leaderboards`, {
       difficulty: difficulty,
       time: time,
       attempts: attempts,
       hints: hints,
       score: score
     })
-    console.log('score successfully posted');
+    console.log(response);
   } catch (err) {
     console.log(err);
   }
 };
 
-export const createGlobalScores = async (username, difficulty, time, attempts, hints, score) => {
-  try {
-    await axios.post(`${URLmastermindServer}/global/leaderboards`, {
-      username: username,
-      difficulty: difficulty,
-      time: time,
-      attempts: attempts,
-      hints: hints,
-      score: score
-    })
-  } catch (err) {
-    console.log(err);
-  }
-};
+//  REFACTOR TO ACCOMADATE LEADERBOARD CHANGES
+// export const createGlobalScores = async (username, difficulty, time, attempts, hints, score) => {
+//   try {
+//     await axios.post(`${URLmastermindServer}/global/leaderboards`, {
+//       username: username,
+//       difficulty: difficulty,
+//       time: time,
+//       attempts: attempts,
+//       hints: hints,
+//       score: score
+//     })
+//   } catch (err) {
+//     console.log(err);
+//   }
+//};

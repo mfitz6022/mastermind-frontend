@@ -1,8 +1,9 @@
-const Message = ({ messageData }) => {
+const Message = ({ message }) => {
+
   return (
     <div className="message-box">
-      <div className="message-user">{messageData.user}</div>
-      <div className="message-body">{messageData.message}</div>
+      <div className="message-user">{message.user}:</div>
+      <div className="message-body">{message.message}</div>
     </div>
   )
 }

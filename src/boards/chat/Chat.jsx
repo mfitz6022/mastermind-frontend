@@ -1,20 +1,23 @@
 import { useState } from 'react';
-import { socket } from '../../../helper_functions/sockets.js';
+import socket from '../../helper_functions/sockets.js';
 import Message from './Message.jsx';
 
-const Chat = ({ user }) => {
-  const [messageData, setMessageData] = useState({user: user, message: ''});
+const Chat = ({ user, room }) => {
+  // const [currentMessage, setCurrentMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const [messageData, setMessageData] = useState({user: user, room: room, message: ''});
 
   const handleTyping = (event) => {
     event.preventDefault();
     setMessageData({
-      username: user,
+      user: user,
+      room: room,
       message: event.target.value
     })
   }
 
   socket.on('receive_message', (data) => {
+    console.log(data)
     setMessageList([...messageList, data])
   })
 
@@ -22,6 +25,7 @@ const Chat = ({ user }) => {
     if (messageData.message.length < 1) {
       alert('You must enter some text before sending a message!')
     }
+
     socket.emit('send_message', messageData);
     setMessageList([...messageList, messageData]);
   }
@@ -30,8 +34,8 @@ const Chat = ({ user }) => {
     <div className="message-container">
       <div className="message-list">
         {
-          messageList.map((message) =>
-          <Message messageData={messageData} />
+          messageList.map((message, index) =>
+          <Message key={index} message={message} />
           )
         }
       </div>

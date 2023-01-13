@@ -4,7 +4,7 @@ import Guess from './gameplay/Guess.jsx';
 import Win from './gameplay/results/Win.jsx';
 import Lose from './gameplay/results/Lose.jsx';
 
-const Board = ({ difficulty, setDifficulty, setDisplay, isConnected }) => {
+const Board = ({ difficulty, setDifficulty, setDisplay, isConnected, roomData }) => {
   const [attempts, setAttempts] = useState(1);
   const [code, setCode] = useState([]);
   const [hasLoaded, setHasLoaded] = useState(false);
@@ -33,6 +33,7 @@ const Board = ({ difficulty, setDifficulty, setDisplay, isConnected }) => {
     for(let i = 0; i < 10; i++) {
       boardArray.push(
         <Guess
+          roomData={roomData}
           setAttempts={setAttempts}
           attempts={attempts}
           code={code}
@@ -47,6 +48,7 @@ const Board = ({ difficulty, setDifficulty, setDisplay, isConnected }) => {
     }
     return boardArray;
   }
+
   useEffect(() => {
     handleCode();
   }, [difficulty]);
