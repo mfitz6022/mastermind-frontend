@@ -2,15 +2,16 @@ import { useState, useEffect } from 'react';
 import ScoreBoard from './ScoreBoard.jsx';
 import { readUserScores } from '../helper_functions/httpRequests.js';
 
-const UserScores = ({ setDisplay }) => {
+const UserScores = ({ user, setDisplay }) => {
   const [scoreData, setScoreData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const isGlobal = false;
 
   const handleScoreData = async () => {
     try {
-      const { data } = await readUserScores();
-      console.log(data);
-      setScoreData(data);
+      const result = await readUserScores(user);
+      console.log(result);
+      setScoreData(result);
     } catch (err) {
       console.log(err);
     } finally {
@@ -25,10 +26,10 @@ const UserScores = ({ setDisplay }) => {
   return (
     isLoaded
       ? <div>
-          <ScoreBoard scoreData={scoreData} setDisplay={setDisplay}/>
+          <ScoreBoard scoreData={scoreData} isGlobal={isGlobal} setDisplay={setDisplay}/>
         </div>
       : <div>
-          <button onClick={() => {setDisplay('MainMenu')}}>Return to Main Menu</button>
+          <button className="return-to-main-menu" onClick={() => {setDisplay('MainMenu')}}>Return to Main Menu</button>
           <div>Loading...</div>
         </div>
   );

@@ -10,14 +10,16 @@ const OnlineBoard = ({ difficulty, setDifficulty, setDisplay, isConnected, user,
   }
 
   useEffect(() => {
-    socket.emit('join', roomData)
+    socket.emit('join', roomData);
   },[])
 
 
 
   return (
     <div className="online-board">
-      <Board difficulty={difficulty} setDifficulty={setDifficulty} setDisplay={setDisplay} isOnline={isConnected} roomData={roomData}/>
+      <div className="board">
+        <Board difficulty={difficulty} setDifficulty={setDifficulty} setDisplay={setDisplay} isOnline={isConnected} roomData={roomData} user={user}/>
+      </div>
       <Chat user={user} room={currentRoom}/>
     </div>
   )

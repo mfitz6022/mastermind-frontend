@@ -24,13 +24,13 @@ const MainMenu = ({ user }) => {
   } else if (display === 'GlobalScores') {
     return <GlobalScores setDisplay={setDisplay}/>
   } else if (display === 'UserScores') {
-    return <UserScores setDisplay={setDisplay}/>
+    return <UserScores user={user} setDisplay={setDisplay}/>
   } else if (display === 'HowToPlay') {
     return <HowToPlay setDisplay={setDisplay}/>
   } else if (display === 'Options') {
     return <Options setDisplay={setDisplay} difficulty={difficulty} setDifficulty={setDifficulty}/>
   } else if (display === 'OfflinePlay') {
-    return <OfflineBoard setDisplay={setDisplay} setDifficulty={setDifficulty}  difficulty={difficulty}/>
+    return <OfflineBoard setDisplay={setDisplay} setDifficulty={setDifficulty}  difficulty={difficulty} user={user}/>
   } else {
     return <OnlineMenu setDisplay={setDisplay} user={user} />
   }

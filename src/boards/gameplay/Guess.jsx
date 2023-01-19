@@ -1,11 +1,24 @@
 import { useState, useEffect } from 'react';
 import { takeGuess } from '../../helper_functions/guessFunctions.js';
 import socket from '../../helper_functions/sockets.js';
+import { guessSchema } from '../../schemas.js';
 
-const Guess = ({code, attempts, setAttempts, setDisplay, hasWon, setHasWon, hasLost, setHasLost, roomData}) => {
+const Guess = ({index, code, attempts, score, setScore, setAttempts, setDisplay, hasWon, setHasWon, hasLost, setHasLost, roomData}) => {
   const [guess, setGuess] = useState([])
   const [feedback, setFeedback] = useState([0, 0, 0, 0]);
-  const [hasSubmit, setHasSubmit] = useState(false)
+  const [hasSubmit, setHasSubmit] = useState(false);
+  const [inputValidation, setInputValidation] = useState(true);
+
+  const attemptData = {
+    roomData: roomData,
+    index: index
+  }
+
+  const inputData = {
+    roomData: roomData,
+    index: index,
+    input: guess
+  }
 
   useEffect((attempts) => {
     console.log(`attempts => ${attempts}`);
@@ -13,31 +26,36 @@ const Guess = ({code, attempts, setAttempts, setDisplay, hasWon, setHasWon, hasL
   },[code]);
 
   socket.on('receive_input', (inputData) => {
-    console.log(`input received: ${inputData}`);
-    setGuess(inputData);
+    if (inputData.index === index) {
+      setGuess(inputData.input);
+    }
   })
 
-  const handleOnlineInput = (roomData, playerInput) => {
-    console.log(playerInput);
-    const inputData = {
-      room: roomData,
-      input: playerInput
+  const handleOnlineInput = (index, event, roomData) => {
+    if (roomData) {
+      socket.emit('transmit_input', inputData);
     }
-    socket.emit('transmit_input', inputData);
   }
 
   const handleInput = async (event, index) => {
-    let newArray = guess;
-    let playerInput = event.target.value;
-    newArray[index] = playerInput;
-    newArray = newArray.slice(0, 4);
-    await setGuess(newArray);
-    if (roomData) {
-      handleOnlineInput(roomData, guess);
+    event.preventDefault();
+    const inputObject = {
+      input: event.target.value
+    };
+    const isValid = await guessSchema.isValid(inputObject);
+
+    if (isValid) {
+      setInputValidation(true);
+      let newArray = guess;
+      newArray[index] = event.target.value;
+      newArray = newArray.slice(0, 4);
+      setGuess(newArray);
+    } else{
+      setInputValidation(false);
     }
   }
 
-  const handleAttempt = (code, guess, attempts) => {
+  const handleAttempt = (code, guess, attempts, index) => {
     setAttempts(attempts + 1);
     let formattedGuess = guess.map((item) => Number(item));
     formattedGuess = formattedGuess.slice(0,4);
@@ -45,26 +63,47 @@ const Guess = ({code, attempts, setAttempts, setDisplay, hasWon, setHasWon, hasL
     if (result === true) {
       setHasWon(true);
     } else if (result === false) {
+      setScore(score - 10);
       setHasLost(true);
     } else {
+      setScore(score - 10);
       setFeedback(result);
     }
     setHasSubmit(true);
   }
 
+  const handleOnlineAttempt = (attemptData) => {
+    if (attemptData.roomData) {
+      socket.emit('send_attempt', attemptData)
+    }
+  }
+
+  socket.on('receive_attempt', (attemptData) => {
+    if (attemptData.index === index) {
+      handleAttempt(code, guess, attempts, index);
+    }
+  })
+
   return (
-    <div>
-      <div className="guess">
-        <div>
-          {guess.map((item, index) => <div key={index}>{item}</div>)}
+    <div className="guess">
+      <div>
+        <div className="guess-display-container">
+          {guess.map((item, index) => <div className="guess-display" key={index}>{item}</div>)}
         </div>
-        <div>
-          {code.map((item, index) => <input key={index} onChange={(event) => {handleInput(event, index)}}/>)}
+        <div className="guess-input-container">
+          {hasSubmit ? null : code.map((item, index) => <input className="guess-input" key={index} onChange={async (event) => {await handleInput(event, index); handleOnlineInput(index, event, roomData)}}/>)}
+        </div>
+        <div className="valid-input">
+          {inputValidation
+            ? null
+            : <div>invalid input. please input a a valid number</div>
+          }
         </div>
       </div>
-        {hasSubmit ? null : <button onClick={() => {handleAttempt(code, guess, attempts)}}>submit</button>}
-      <div className="feedback">
-        {feedback.map((item, index) => <div key={index}>{item}</div>)}
+        {hasSubmit ? null : <button className="guess-submit" onClick={() => {handleAttempt(code, guess, attempts); handleOnlineAttempt(attemptData)}}>submit</button>}
+      <div className="guess-feedback-container">
+        <div className="guess-results">Guess results: </div>
+        {feedback.map((item, index) => <div className="guess-feedback" key={index}>{item}</div>)}
       </div>
     </div>
   )

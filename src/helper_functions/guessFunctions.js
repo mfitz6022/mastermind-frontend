@@ -27,9 +27,9 @@ export const takeGuess = (code, guess, count) => {
 
   if (isCorrect) {
     return true;
-  }  else if (!isCorrect && count < 10) {
+  }  else if (!isCorrect && count < 9) {
     return feedBack;
-  } else{
+  } else {
     return false;
   }
 }

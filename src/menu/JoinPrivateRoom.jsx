@@ -23,7 +23,7 @@ const JoinPrivateRoom = ({ user, roomName, setInGame, setCurrentRoom }) => {
   return (
     <div className="access-private-room">
       <div>Enter the private room key</div>
-      <input className="private-room-key" onChange={handleChange}/>
+      <input className="private-room-key" type="password" onChange={handleChange}/>
       <button className="join-private-room" onClick={() => handleSubmit(user, roomName, roomPassword)}>Join!</button>
     </div>
   )

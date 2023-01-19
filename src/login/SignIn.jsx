@@ -31,11 +31,11 @@ const SignIn = ({ setIsLoggedIn, user, setUser }) => {
               ? <div>invalid username or password</div>
               : null
             }
-            <button className="sign-in" onClick={handleSignIn}>
+            <button className="sign-in-button" onClick={handleSignIn}>
               Sign In!
             </button>
-            Don't have an account?
-            <button className="dont-have-account" onClick={() => {setHasAccount(false)}}>
+            <div className="dont-have-account-title">Don't have an account?</div>
+            <button className="dont-have-account-button" onClick={() => {setHasAccount(false)}}>
               Sign Up!
             </button>
           </div>

@@ -28,6 +28,8 @@ const OnlineMenu = ({ setDisplay, user }) => {
     socket.on('disconnect', () => {
       setIsConnected(false);
     })
+
+    console.log(`public rooms: ${rooms}\nprivate rooms: ${privateRooms}`)
   },[])
 
   const handleJoinRoom = (room) => {
@@ -38,17 +40,18 @@ const OnlineMenu = ({ setDisplay, user }) => {
   return (
     <div>
       {inGame
-        ? <OnlineBoard currentRoom={currentRoom} user={user}/>
+        ? <OnlineBoard currentRoom={currentRoom} setDisplay={setDisplay} user={user}/>
         : <div className="online-menu-container">
             {isConnected
             ? <div className="rooms-options-container">
                 <div className="public-room-container">
                   {publicHasLoaded && privateHasLoaded
                     ? <div>
-                        <div>Public Rooms:</div>
+                        <div className="rooms-container">Public Rooms:</div>
                         {rooms.map((item, index) =>
                           <div className="room-details" key={index} >
-                            <button className="join-room-button" onClick={() => handleJoinRoom(item)}>Click Here to Join a Room</button>
+                            <div className="room-name">{item}</div>
+                            <button className="join-room-button" onClick={() => handleJoinRoom(item)}>Join Room</button>
                             <div className="room-list">
                               {usersInRoom.map((item, index) =>
                               <div className="room">
@@ -57,10 +60,12 @@ const OnlineMenu = ({ setDisplay, user }) => {
                             </div>
                           </div>
                         )}
-                        <div>Private Rooms:</div>
+                        <div className="rooms-container">Private Rooms:</div>
                         {privateRooms.map((item, index) =>
                           <div className="room-details" key={index}>
-                            <button className="join-room-button" onClick={() => setToggleJoin(!toggleJoin)}>Click Here to Join a Room</button>
+                            <div className="room-name">{item.room_name}</div>
+                            <div className="room-owner">Owner: {item.owner}</div>
+                            <button className="join-room-button" onClick={() => setToggleJoin(!toggleJoin)}>Join Room</button>
                             {toggleJoin
                               ? <JoinPrivateRoom user={user} roomName={item.room_name} setInGame={setInGame} setCurrentRoom={setCurrentRoom}/>
                               : null
@@ -77,14 +82,14 @@ const OnlineMenu = ({ setDisplay, user }) => {
                     : <div>FETCHING ROOMS</div>
                   }
                 </div>
-                <button className="main-menu-button" onClick={() => setDisplay('MainMenu')}>Return to Main Menu</button>
+                <button className="back-to-main-menu-button" onClick={() => setDisplay('MainMenu')}>Return to Main Menu</button>
               </div>
             : <div>AWAITING CONNECTION...
                 <button onClick={() => setDisplay('MainMenu')}>Return to Main Menu</button>
               </div>
           }
           <div className="create-private-room">
-            <div>Click Here to Create Your Own Private Room:</div>
+            <div className="create-private-room-title">Click Here to Create Your Own Private Room:</div>
             <button className="create-private-room-button" onClick={() => setCreateRoomModal(!createRoomModal)}>Create Room</button>
             {createRoomModal
               ? <CreatePrivateRoomModal user={user}/>

@@ -26,7 +26,7 @@ const CreatePrivateRoomModal = ({ user }) => {
       <div className="private-room-message">Please enter a name for your private room</div>
       <input className="private-room-name" onChange={handleNameInput}/>
       <div className="private-room-message">Please enter a password for your private room</div>
-      <input className="private-room-password" onChange={handlePasswordInput}/>
+      <input className="private-room-password" type="password" onChange={handlePasswordInput}/>
       {hasSent
         ? <button className="submit-private-room">Sent!</button>
         : <button className="submit-private-room" onClick={() => handleSubmit(user, roomName, roomPass)}>Submit!</button>

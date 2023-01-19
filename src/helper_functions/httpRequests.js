@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { loginSchema } from '../schemas.js';
 
 const URLrandom = (num) => {
-  return `https://www.random.org/integers/?num=${num}&min=0&max=7&col=1&base=10&format=plain&rnd=new`;
+  return `https://www.random.org/integers/?num=4&min=0&max=${num}&col=1&base=10&format=plain&rnd=new`;
 }
 
 const URLmastermindServer = 'http://localhost:3000';
@@ -12,17 +13,18 @@ const dataParser = (data)  => {
 
   for (let i = 0; i <= dataArray.length; i++) {
     let num = Number(dataArray[i]);
-    if (num) {
+    if (i % 2 === 0 && !isNaN(num)) {
       parsedData.push(num);
     }
   }
 
-  return parsedData;
+  return parsedData.slice(0, 4);
 }
 
 export const randomNumberEasy = async () => {
   try {
-    const { data } = await axios.get(URLrandom(4));
+    const { data } = await axios.get(URLrandom(7));
+    console.log('from randomNumberEasy: ' + data);
     return dataParser(data);
   } catch (err) {
     console.log(err);
@@ -31,7 +33,7 @@ export const randomNumberEasy = async () => {
 
 export const randomNumberMed = async () => {
   try {
-    const { data } = await axios.get(URLrandom(7));
+    const { data } = await axios.get(URLrandom(10));
     return dataParser(data);
   } catch (err) {
     console.log(err);
@@ -40,64 +42,77 @@ export const randomNumberMed = async () => {
 
 export const randomNumberHard = async () => {
   try {
-    const { data } = await axios.get(URLrandom(10));
+    const { data } = await axios.get(URLrandom(13));
     return dataParser(data);;
   } catch (err) {
     console.log(err);
   }
 };
 
-export const readUserScores = async () => {
+export const readUserScores = async (user) => {
+  const params = {
+    username: user
+  }
   try {
-    const response = await axios.get(`${URLmastermindServer}/users/leaderboards`);
-    return response;
+    console.log(`user sent: ${user}`)
+    const { data } = await axios.get(`${URLmastermindServer}/users/leaderboards/`, { params: params });
+    return data;
   } catch (err) {
     console.log(err);
   }
 };
 
-//  REFACTOR TO ACCOMADATE LEADERBOARD CHANGES
-// export const readGlobalLeaderboards = async () => {
-//   try {
-//     const response = await axios.get(`${URLmastermindServer}/global/leaderboards`);
-//     return response;
-//   } catch (err) {
-//     console.log(err);
-//   }
-// }
-
-export const createUser = async (username, password) => {
+export const readGlobalLeaderboards = async () => {
   try {
-    const response = await axios.post(`${URLmastermindServer}/users/sign-up`, {
-      username: username,
-      password: password
-    })
+    const response = await axios.get(`${URLmastermindServer}/global/leaderboards`);
     return response;
   } catch (err) {
+    console.log(err);
+  }
+}
+
+export const createUser = async (username, password) => {
+  const signUpData = {
+    username: username,
+    password: password,
+  }
+  try {
+    const isValid = await loginSchema.isValid(signUpData);
+    if (isValid) {
+      const response = await axios.post(`${URLmastermindServer}/users/sign-up`, signUpData);
+      return response;
+    }
+    } catch (err) {
     console.log(err);
   }
 };
 
 export const loginUser = async (username, password) => {
+  const loginData = {
+    username: username,
+    password: password
+  }
   try {
-    const response = await axios.post(`${URLmastermindServer}/users/sign-in`, {
-      username: username,
-      password: password
-    })
-    return response;
+    const isValid = await loginSchema.isValid
+    (loginData);
+    if (isValid) {
+      const response = await axios.post(`${URLmastermindServer}/users/sign-in`, loginData)
+      return response;
+    } else {
+      return isValid;
+    }
   } catch (err) {
     console.log(err)
   }
 };
 
-// REFACTOR TO ACCOMODATE CHANGES TO LEADERBOARD
-export const createUserScores = async (difficulty, time, attempts, hints, score) => {
+export const createUserScores = async (user, difficulty, time, attempts, score) => {
   try {
     const response = await axios.post(`${URLmastermindServer}/users/leaderboards`, {
+      username: user,
       difficulty: difficulty,
       time: time,
       attempts: attempts,
-      hints: hints,
       score: score
     })
     console.log(response);
@@ -106,18 +121,17 @@ export const createUserScores = async (difficulty, time, attempts, hints, score)
   }
 };
 
-//  REFACTOR TO ACCOMADATE LEADERBOARD CHANGES
-// export const createGlobalScores = async (username, difficulty, time, attempts, hints, score) => {
+// This code is redundant but left in intentionally for future functionality
+// export const createGlobalScores = async (username, difficulty, time, attempts, score) => {
 //   try {
 //     await axios.post(`${URLmastermindServer}/global/leaderboards`, {
 //       username: username,
 //       difficulty: difficulty,
 //       time: time,
 //       attempts: attempts,
-//       hints: hints,
 //       score: score
 //     })
 //   } catch (err) {
 //     console.log(err);
 //   }
-//};
+// };

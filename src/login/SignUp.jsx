@@ -29,11 +29,11 @@ const SignUp = ({setHasAccount}) => {
         ? <div>credentials were invalid or username already exists</div>
         : null
       }
-      <button className="sign-up button" onClick={handleSignUp}>
+      <button className="sign-up-button" onClick={handleSignUp}>
         Sign Up!
       </button>
       <div>Already have an account?</div>
-      <button onClick={() => {setHasAccount(true)}}>
+      <button className="back-to-sign-in-button" onClick={() => {setHasAccount(true)}}>
         Go to Sign in
       </button>
     </div>

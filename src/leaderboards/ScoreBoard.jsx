@@ -1,15 +1,20 @@
-const ScoreBoard = ({ scoreData, setDisplay }) => {
+const ScoreBoard = ({ scoreData, setDisplay, isGlobal }) => {
+
   return (
     <div className="score-board">
-      {scoreData.map((item, index) => <div key={index}>
-        <div>{item.username}</div>
-        <div>{item.difficulty}</div>
-        <div>{item.time_elapsed}</div>
-        <div>{item.attempts}</div>
-        <div>{item.hints_used}</div>
+      {scoreData.map((item, index) =>
+      <div key={index} className="score-board-container">
+          {isGlobal
+            ? <div className="score-board-item username">user: {item.username}</div>
+            : null
+          }
+          <div className="score-board-item score">score: {item.score}</div>
+          <div className="score-board-item difficulty">difficulty: {item.difficulty}</div>
+          <div className="score-board-item time">time: {item.time}</div>
+          <div className="score-board-item attempts">attempts: {item.attempts}</div>
       </div>)}
       <div>
-        <button className="return-to-menu" onClick={() => {setDisplay('MainMenu')}}>Return to Main Menu</button>
+        <button className="return-to-main-menu" onClick={() => {setDisplay('MainMenu')}}>Return to Main Menu</button>
       </div>
     </div>
   );
