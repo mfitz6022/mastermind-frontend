@@ -5,7 +5,7 @@ const URLrandom = (num) => {
   return `https://www.random.org/integers/?num=4&min=0&max=${num}&col=1&base=10&format=plain&rnd=new`;
 }
 
-const URLmastermindServer = 'http://localhost:3000';
+const URLmastermindServer = 'http://54.67.49.166:3000';
 
 const dataParser = (data)  => {
   let dataArray = data.split('');
@@ -18,13 +18,13 @@ const dataParser = (data)  => {
     }
   }
 
+  console.log(parsedData.slice(0, 4));
   return parsedData.slice(0, 4);
 }
 
 export const randomNumberEasy = async () => {
   try {
     const { data } = await axios.get(URLrandom(7));
-    console.log('from randomNumberEasy: ' + data);
     return dataParser(data);
   } catch (err) {
     console.log(err);

@@ -2,7 +2,7 @@ import { io } from 'socket.io-client';
 import axios from 'axios';
 import { joinRoomSchema, createRoomSchema } from '../schemas.js';
 
-const URL = 'http://localhost:3000';
+const URL = 'http://54.67.49.166:3000';
 
 const socket = io(URL, { autoConnect: false });
 
