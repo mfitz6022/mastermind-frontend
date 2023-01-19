@@ -11,7 +11,6 @@ const JoinPrivateRoom = ({ user, roomName, setInGame, setCurrentRoom }) => {
 
   const handleSubmit = async (user, roomName, roomPassword) => {
     const response = await AccessPrivateRoom(user, roomName, roomPassword);
-    console.log(response);
     if (response) {
       setCurrentRoom(roomName);
       setInGame(true);

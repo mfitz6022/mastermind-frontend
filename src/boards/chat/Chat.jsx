@@ -9,8 +9,6 @@ const Chat = ({ user, room }) => {
   const [messageData, setMessageData] = useState({user: user, room: room, message: ' '});
   const [messageValid, setMessageValid] = useState(true);
 
-  const invalidMessage = ''
-
   const handleTyping = (event) => {
     event.preventDefault();
     setMessageData({
@@ -21,7 +19,6 @@ const Chat = ({ user, room }) => {
   }
 
   socket.on('receive_message', (data) => {
-    console.log(data)
     setMessageList([...messageList, data])
   })
 

@@ -10,8 +10,7 @@ const SignUp = ({setHasAccount}) => {
 
   const handleSignUp = async () => {
     try {
-      const { data } = await createUser(createUsername, createPassword);
-      console.log(data);
+      await createUser(createUsername, createPassword);
       setHasAccount(true);
       if (isError) {
         setIsError(false);
