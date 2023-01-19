@@ -10,10 +10,6 @@ const HowToPlay = ({ setDisplay }) => {
         <li className="instruction-list-point">"Hard" mode codes consist of numbers between 0 and 13</li>
         <li className="instruction-list-point">Each additional attempt decreases your score by 10 points</li>
         <li className="instruction-list-point">After each attempt, you will recieve feedback on the attempt</li>
-        <li className="instruction-list-point">The feedback will consist of three numbers: 0, 1, and 2</li>
-        <li className="instruction-list-point">A "0" indicates that a guessed number is not in the code</li>
-        <li className="instruction-list-point">A "1" indicates that a guessed number is in the code, but not in the correct position</li>
-        <li className="instruction-list-point">A "2" indicates that a guessed number is in the code and in the correct positon</li>
       </ul>
       <h4>Multiplayer</h4>
       <h6>This mastermind app enables players to play with friends or others in the community anywhere in the world.</h6>

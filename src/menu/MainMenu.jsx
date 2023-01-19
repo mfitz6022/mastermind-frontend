@@ -28,7 +28,7 @@ const MainMenu = ({ user }) => {
   } else if (display === 'HowToPlay') {
     return <HowToPlay setDisplay={setDisplay}/>
   } else if (display === 'Options') {
-    return <Options setDisplay={setDisplay} difficulty={difficulty} setDifficulty={setDifficulty}/>
+    return <Options setDisplay={setDisplay} difficulty={difficulty} setDifficulty={setDifficulty} user={user}/>
   } else if (display === 'OfflinePlay') {
     return <OfflineBoard setDisplay={setDisplay} setDifficulty={setDifficulty}  difficulty={difficulty} user={user}/>
   } else {

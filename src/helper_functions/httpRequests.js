@@ -121,17 +121,14 @@ export const createUserScores = async (user, difficulty, time, attempts, score) 
   }
 };
 
-// This code is redundant but left in intentionally for future functionality
-// export const createGlobalScores = async (username, difficulty, time, attempts, score) => {
-//   try {
-//     await axios.post(`${URLmastermindServer}/global/leaderboards`, {
-//       username: username,
-//       difficulty: difficulty,
-//       time: time,
-//       attempts: attempts,
-//       score: score
-//     })
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+export const deleteUser = async (user) => {
+  const data = {
+    username: user
+  };
+  try {
+    const response = await axios.delete(`${URLmastermindServer}/users/delete`, data);
+    console.log(response);
+  } catch (err){
+    console.log(err)
+  }
+}
