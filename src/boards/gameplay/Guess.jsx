@@ -62,10 +62,10 @@ const Guess = ({index, code, attempts, score, setScore, setAttempts, setDisplay,
     if (result === true) {
       setHasWon(true);
     } else if (result === false) {
-      setScore(score - 10);
+      setScore(score - (attempts * 10 + 10));
       setHasLost(true);
     } else {
-      setScore(score - 10);
+      setScore(score - (attempts * 10 + 10));
       setFeedback(result);
     }
     setHasSubmit(true);

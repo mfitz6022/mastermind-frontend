@@ -6,7 +6,6 @@ import Win from './gameplay/results/Win.jsx';
 import Lose from './gameplay/results/Lose.jsx';
 
 const Board = ({ difficulty, setDifficulty, setDisplay, isConnected, roomData, user }) => {
-  const [isJoining, setIsJoining] = useState(false);
   const [time,setTime] = useState(0);
   const [stopTime, setStopTime] = useState(false);
   const [attempts, setAttempts] = useState(0);

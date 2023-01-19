@@ -5,7 +5,7 @@ import OnlineBoard from '../boards/OnlineBoard.jsx';
 import socket from '../helper_functions/sockets.js';
 import { fetchPublicRooms, fetchPrivateRooms } from '../helper_functions/sockets.js';
 
-const OnlineMenu = ({ setDisplay, user }) => {
+const OnlineMenu = ({ setDisplay, user, difficulty }) => {
   const [inGame, setInGame] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [toggleJoin, setToggleJoin] = useState(false);
@@ -38,7 +38,7 @@ const OnlineMenu = ({ setDisplay, user }) => {
   return (
     <div>
       {inGame
-        ? <OnlineBoard currentRoom={currentRoom} setDisplay={setDisplay} user={user}/>
+        ? <OnlineBoard difficulty={difficulty} currentRoom={currentRoom} setDisplay={setDisplay} user={user}/>
         : <div className="online-menu-container">
             {isConnected
             ? <div className="rooms-options-container">
