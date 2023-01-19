@@ -6,9 +6,6 @@ const Win = ({ user, stopTime, setStopTime, code, difficulty, score, attempts, t
 
   useEffect(() => {
     setStopTime(true);
-    console.log('difficulty: ' + difficulty);
-    console.log('user: ' + user);
-    console.log('time' + formatTime);
     createUserScores(user, difficulty, formatTime, attempts, score);
   },[]);
 

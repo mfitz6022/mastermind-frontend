@@ -6,6 +6,7 @@ import Win from './gameplay/results/Win.jsx';
 import Lose from './gameplay/results/Lose.jsx';
 
 const Board = ({ difficulty, setDifficulty, setDisplay, isConnected, roomData, user }) => {
+  const [isJoining, setIsJoining] = useState(false);
   const [time,setTime] = useState(0);
   const [stopTime, setStopTime] = useState(false);
   const [attempts, setAttempts] = useState(0);
@@ -14,6 +15,7 @@ const Board = ({ difficulty, setDifficulty, setDisplay, isConnected, roomData, u
   const [hasLoaded, setHasLoaded] = useState(false);
   const [hasWon, setHasWon] = useState(false);
   const [hasLost, setHasLost] = useState(false);
+
 
   const handleCode = async () => {
     if (roomData) {
@@ -52,18 +54,12 @@ const Board = ({ difficulty, setDifficulty, setDisplay, isConnected, roomData, u
   };
 
   const createCodeOnline = async () => {
-    const codeData = {
-      room: roomData.room,
-      code: code
-    }
     if (difficulty === 'easy') {
       try {
         const response = await randomNumberEasy();
         await setCode(response);
-        codeData.code = response;
+        socket.emit('join', roomData);
         setHasLoaded(true);
-        socket.emit('send_code', codeData);
-        console.log(`code sent: ${codeData.code}`);
       } catch (err) {
         console.log(err);
       }
@@ -72,9 +68,8 @@ const Board = ({ difficulty, setDifficulty, setDisplay, isConnected, roomData, u
       try {
         const response = await randomNumberMed();
         await setCode(response);
-        codeData.code = code;
+        socket.emit('join', roomData);
         setHasLoaded(true);
-        socket.emit('send_code', codeData);
       } catch (err) {
         console.log(err);
       }
@@ -82,19 +77,13 @@ const Board = ({ difficulty, setDifficulty, setDisplay, isConnected, roomData, u
       try {
         const response = await randomNumberHard();
         await setCode(response);
-        codeData.code = code;
+        socket.emit('join', roomData);
         setHasLoaded(true);
-        socket.emit('send_code', codeData);
       } catch (err) {
         console.log(err);
       }
     }
   }
-
-  socket.on('receive_code', (codeData) => {
-    console.log(`code received: ${codeData}`);
-    setCode(codeData);
-  })
 
   const createBoard = () => {
     let boardArray = [];
@@ -120,12 +109,25 @@ const Board = ({ difficulty, setDifficulty, setDisplay, isConnected, roomData, u
     return boardArray;
   };
 
+  socket.on('joined', async () => {
+    const codeData = {
+      room: roomData.room,
+      code: code
+    }
+    socket.emit('send_code', codeData);
+  })
+
+  socket.on('receive_code', async (codeData) => {
+    console.log(`code received: ${codeData.code}`);
+    setCode(codeData.code);
+  })
+
   useEffect(() => {
     handleCode();
+    return () => { setCode(null); setHasLoaded(false); }
   },[])
 
   useEffect(() => {
-
     let interval = null;
     if (!stopTime) {
       interval = setInterval(() => {

@@ -10,7 +10,6 @@ const UserScores = ({ user, setDisplay }) => {
   const handleScoreData = async () => {
     try {
       const result = await readUserScores(user);
-      console.log(result);
       setScoreData(result);
     } catch (err) {
       console.log(err);

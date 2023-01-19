@@ -10,10 +10,8 @@ export const takeGuess = (code, guess, count) => {
   guess.forEach((input, index) => {
     if (input === code[index]) {
       feedBack[1]++;
-      console.log(feedBack);
     } else if (`${input}` in codeObject) {
       feedBack[0]++;
-      console.log(feedBack);
     }
   })
 

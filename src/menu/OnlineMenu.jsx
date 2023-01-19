@@ -28,8 +28,6 @@ const OnlineMenu = ({ setDisplay, user }) => {
     socket.on('disconnect', () => {
       setIsConnected(false);
     })
-
-    console.log(`public rooms: ${rooms}\nprivate rooms: ${privateRooms}`)
   },[])
 
   const handleJoinRoom = (room) => {

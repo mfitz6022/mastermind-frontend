@@ -17,7 +17,6 @@ const dataParser = (data)  => {
       parsedData.push(num);
     }
   }
-
   console.log(parsedData.slice(0, 4));
   return parsedData.slice(0, 4);
 }
@@ -54,7 +53,6 @@ export const readUserScores = async (user) => {
     username: user
   }
   try {
-    console.log(`user sent: ${user}`)
     const { data } = await axios.get(`${URLmastermindServer}/users/leaderboards/`, { params: params });
     return data;
   } catch (err) {
