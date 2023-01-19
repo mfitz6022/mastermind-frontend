@@ -1,6 +1,8 @@
-const Options = ({ setDisplay, difficulty, setDifficulty }) => {
+import { deleteUser } from '../helper_functions/httpRequests.js';
+
+const Options = ({ setDisplay, difficulty, setDifficulty, user }) => {
   const deleteMessage = 'If you would like to delete your mastermind profile, you can do so by clicking the delete button below.';
-  const deleteWarning = 'WARNING: deleting your account will erase all your personal scores. These cannot be recovered once they are deleted.'
+  const deleteWarning = 'WARNING: Your account cannot be recovered once it is deleted.'
 
   return (
     <div>
@@ -15,7 +17,7 @@ const Options = ({ setDisplay, difficulty, setDifficulty }) => {
       <div className="delete-user-container">
         <div className="delete-user-message">{deleteMessage}</div>
         <div className="delete-user-warning">{deleteWarning}</div>
-        <button className="delete-user-button">Delete</button>
+        <button className="delete-user-button" onClick={() => deleteUser(user)}>Delete</button>
       </div>
       <button className="main-menu-button" onClick={() => {setDisplay('MainMenu')}}>Return to Main Menu</button>
     </div>
