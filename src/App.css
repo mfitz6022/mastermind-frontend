@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-logo {
@@ -24,15 +28,398 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.title {
+  font-size: x-large;
+  margin-top: 5vh;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.sign-in {
+  display: flex;
+  flex-direction: column;
+  align-items: space-around;
+}
+
+.input-username-title {
+  margin-top: 5vw;
+  margin-bottom: 30px;
+}
+
+.input-password-title {
+  margin-bottom: 30px;
+  margin-top: 5vw;
+}
+
+.input-username {
+  width: 60vw;
+  height: 45px;
+  border-radius: 15px;
+  border-color: #282c34;
+  border-width: 0.5px;
+  margin-bottom: 30px;
+}
+
+.input-password {
+  width: 60vw;
+  height: 45px;
+  border-radius: 15px;
+  border-color: #282c34;
+  border-width: 0.5px;
+  margin-bottom: 40px;
+}
+
+.sign-in-button {
+  border: solid;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  border-color: #282c34;
+  border-width: 0.5px;
+  background-color: white;
+  margin-bottom: 5vw;
+}
+
+.sign-up-button {
+  border: solid;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  border-color: #282c34;
+  border-width: 0.5px;
+  background-color: white;
+  margin-bottom: 5vw;
+}
+
+.dont-have-account-button {
+  border: solid;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  border-color: #282c34;
+  border-width: 0.5px;
+  background-color: white;
+  margin-bottom: 5vw;
+  margin-top: 15px;
+}
+
+.back-to-sign-in-button {
+  border: solid;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  border-color: #282c34;
+  border-width: 0.5px;
+  background-color: white;
+  margin-top: 15px;
+}
+
+.main-menu-nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80vh;
+  margin-top: 5vh;
+}
+
+.main-menu-button {
+  width: 300px;
+  height: 50px;
+  border-radius: 25px;
+  border-width: 0.5px;
+  border-color: #282c34;
+  background-color: white;
+}
+
+.back-to-main-menu-button {
+  border: solid;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  border-color: #282c34;
+  border-width: 0.5px;
+  background-color: white;
+  margin-top: 15px;
+}
+
+.rooms-container {
+  margin-top: 75px;
+  margin-bottom: 20px;
+}
+
+.room-details {
+  border: solid;
+  border-width: 1px;
+  width: 50vw;
+  height: 125px;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+.join-room-button {
+  width: 125px;
+  height: 30px;
+  border-radius: 5px;
+  border-width: 1px;
+  background-color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.create-private-room {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.create-private-room-title {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.create-private-room-button {
+  border: solid;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  border-color: #282c34;
+  border-width: 0.5px;
+  background-color: white;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+
+.online-board {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  margin-top: 20px;
+}
+
+.board-container {
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+.board-stats {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.time {
+  display: flex;
+  flex-direction: row;
+  margin-left: 5vw;
+}
+
+.attempts {
+  margin-left: 10vw;
+}
+
+.score {
+  margin-left: 10vw;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-left: 25px;
+  margin-top: 68px;
+  border: solid;
+  border-radius: 10px;
+  width: 25vw;
+  height: 500px;
+  position:sticky;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  overflow-y: scroll;
+}
+
+.message-input-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  border-top: solid;
+}
+
+.message-input {
+  width: 20vw;
+  border: none;
+  margin-left: 7px;
+}
+
+.message-box {
+  display: flex;
+  flex-direction: row;
+  width: 20vw;
+  margin-top: 2.5px;
+  margin-bottom: 2.5px;
+  margin-left: 2.5px;
+  overflow-wrap: normal;
+  word-wrap: break-word;
+}
+
+.guess {
+  height: 200px;
+  border: solid;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.guess-display-container {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  overflow-y: hidden;
+}
+
+.guess-display {
+  margin-left: 20px;
+  margin-right: 5px;
+}
+
+.guess-feedback-container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2.5px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.guess-submit {
+  border: solid;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  border-color: #282c34;
+  border-width: 0.5px;
+  background-color: white;
+  margin-top: 10px;
+}
+
+.guess-results {
+  margin-right: 2.5px;
+}
+
+.guess-feedback {
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+}
+
+.results-page {
+  margin-right: 5vw;
+  margin-top: 38px;
+}
+
+.game-win {
+  font-size: larger;
+  color: green;
+  margin-bottom: 10px;
+}
+
+.game-lose {
+  font-size: larger;
+  color: red;
+  margin-bottom: 10px;
+}
+
+.game-results {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+}
+
+.return-to-main-menu {
+  margin-top: 25px;
+  margin-bottom: 20px;
+  width: 300px;
+  height: 50px;
+  border-radius: 25px;
+  border-width: 0.5px;
+  border-color: #282c34;
+  background-color: white;
+}
+
+.result {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.current-difficulty {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.difficulty-button-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.delete-user-container {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.delete-user-message {
+  margin-top: 10px;
+}
+
+.delete-user-warning {
+  margin-bottom: 10px;
+}
+
+.delete-user-button {
+  border: solid;
+  border-color: red;
+  color: red;
+  width: 150px;
+  height: 40px;
+  border-radius: 50px;
+  border-width: 0.5px;
+  background-color: white;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.instruction-list-point {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+}
+
+.score-board-container {
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.score-board-item {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.score {
+  font-weight: bold;
 }
