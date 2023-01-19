@@ -32,7 +32,7 @@ const MainMenu = ({ user }) => {
   } else if (display === 'OfflinePlay') {
     return <OfflineBoard setDisplay={setDisplay} setDifficulty={setDifficulty}  difficulty={difficulty} user={user}/>
   } else {
-    return <OnlineMenu setDisplay={setDisplay} user={user} />
+    return <OnlineMenu difficulty={difficulty} setDisplay={setDisplay} user={user} />
   }
 }
 

@@ -5,7 +5,7 @@ import { guessSchema } from '../../schemas.js';
 
 const Guess = ({index, code, attempts, score, setScore, setAttempts, setDisplay, hasWon, setHasWon, hasLost, setHasLost, roomData}) => {
   const [guess, setGuess] = useState([])
-  const [feedback, setFeedback] = useState([0, 0, 0, 0]);
+  const [feedback, setFeedback] = useState('');
   const [hasSubmit, setHasSubmit] = useState(false);
   const [inputValidation, setInputValidation] = useState(true);
 
@@ -21,7 +21,6 @@ const Guess = ({index, code, attempts, score, setScore, setAttempts, setDisplay,
   }
 
   useEffect((attempts) => {
-    console.log(`attempts => ${attempts}`);
     code.forEach((item) => { setGuess(guess => [...guess, 0])})
   },[code]);
 
@@ -102,8 +101,7 @@ const Guess = ({index, code, attempts, score, setScore, setAttempts, setDisplay,
       </div>
         {hasSubmit ? null : <button className="guess-submit" onClick={() => {handleAttempt(code, guess, attempts); handleOnlineAttempt(attemptData)}}>submit</button>}
       <div className="guess-feedback-container">
-        <div className="guess-results">Guess results: </div>
-        {feedback.map((item, index) => <div className="guess-feedback" key={index}>{item}</div>)}
+        <div className="guess-feedback">{feedback}</div>
       </div>
     </div>
   )

@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { createUserScores } from '../../../helper_functions/httpRequests.js';
 
 const Win = ({ user, stopTime, setStopTime, code, difficulty, score, attempts, time, setDisplay }) => {
-  const formatTime = `${('0' + Math.floor((time / 3600000) % 100)).slice(-2)}:
-  ${('0' + Math.floor((time / 60000) % 60)).slice(-2)}:
-  ${('0' + Math.floor((time / 1000) % 60)).slice(-2)}`;
+  const formatTime = `${('0' + Math.floor((time / 3600000) % 100)).slice(-2)}:${('0' + Math.floor((time / 60000) % 60)).slice(-2)}:${('0' + Math.floor((time / 1000) % 60)).slice(-2)}`;
 
   useEffect(() => {
     setStopTime(true);
+    console.log('difficulty: ' + difficulty);
+    console.log('user: ' + user);
+    console.log('time' + formatTime);
     createUserScores(user, difficulty, formatTime, attempts, score);
   },[]);
 
